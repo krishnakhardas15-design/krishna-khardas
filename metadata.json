@@ -1,0 +1,8 @@
+{
+  "name": "AnnSeva",
+  "description": "Zero-waste food connector matching donors with receivers to reduce food waste and help the needy.",
+  "requestFramePermissions": [
+    "geolocation"
+  ],
+  "majorCapabilities": []
+}

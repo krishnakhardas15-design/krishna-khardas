@@ -1,0 +1,118 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "User profile with role and contact information",
+      "type": "object",
+      "properties": {
+        "role": {
+          "type": "string",
+          "enum": ["Donor", "Receiver"]
+        },
+        "organization_name": {
+          "type": "string"
+        },
+        "full_name": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["role", "full_name"]
+    },
+    "FoodPost": {
+      "title": "Food Donation Post",
+      "description": "A post describing food available for donation",
+      "type": "object",
+      "properties": {
+        "donorId": {
+          "type": "string"
+        },
+        "foodType": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string",
+          "enum": ["Vegetarian", "Non-Vegetarian", "Vegan", "Halal", "Jain", "Baked Goods", "Fruits/Veg"]
+        },
+        "quantity": {
+          "type": "integer"
+        },
+        "preparationTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "expiryTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "pickupAddress": {
+          "type": "string"
+        },
+        "latitude": {
+          "type": "number"
+        },
+        "longitude": {
+          "type": "number"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["pending", "claimed", "delivered", "expired"]
+        },
+        "claimedBy": {
+          "type": "string",
+          "description": "UID of the receiver who claimed this"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["donorId", "foodType", "quantity", "expiryTime", "pickupAddress", "status"]
+    },
+    "Claim": {
+      "title": "Food Claim",
+      "description": "A record of a receiver claiming a food post",
+      "type": "object",
+      "properties": {
+        "foodPostId": {
+          "type": "string"
+        },
+        "receiverId": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["foodPostId", "receiverId"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "foodPosts/{postId}": {
+      "schema": "FoodPost",
+      "description": "Available food donations"
+    },
+    "claims/{claimId}": {
+      "schema": "Claim",
+      "description": "Claims made on food posts"
+    }
+  }
+}
